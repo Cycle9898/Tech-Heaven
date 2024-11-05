@@ -221,7 +221,7 @@ export const seed = async (payload: Payload): Promise<void> => {
               relationTo: 'pages',
               value: productsPageDoc.id,
             },
-            label: 'Shop',
+            label: 'Boutique',
           },
         },
       ],
