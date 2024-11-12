@@ -50,7 +50,7 @@ const LoginForm: React.FC = () => {
       <Message error={error} className={classes.message} />
       <Input
         name="email"
-        label="Email"
+        label="E-mail"
         required
         register={register}
         error={errors.email}
