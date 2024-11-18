@@ -11,7 +11,7 @@ export type RelatedProductsProps = {
   blockType: 'relatedProducts'
   blockName: string
   introContent?: any
-  docs?: (string | Product)[]
+  docs?: (number | Product)[]
   relationTo: 'products'
 }
 
@@ -41,7 +41,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = props => {
                   .filter(Boolean)
                   .join(' ')}
               >
-                <Card relationTo={relationTo} doc={doc} showCategories />
+                <Card relationTo={relationTo} doc={doc as Product} showCategories />
               </div>
             )
           })}
