@@ -6,6 +6,7 @@ import { fetchDoc } from '@/app/_api/fetchDoc'
 import { draftMode } from 'next/headers'
 import { fetchDocs } from '@/app/_api/fetchDocs'
 import { HR } from '@/app/_components/HR'
+import Filters from './Filters'
 
 async function Products() {
   const { isEnabled: isDraftMode } = draftMode()
@@ -28,7 +29,7 @@ async function Products() {
   return (
     <div className={classes.container}>
       <Gutter className={classes.products}>
-        {/* TODO add filters */}
+        <Filters categories={categories} />
 
         <Blocks blocks={page.layout} disableTopPadding={true} />
       </Gutter>
