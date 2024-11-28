@@ -48,14 +48,14 @@ function Filters({ categories }: { categories: Category[] }) {
 
         <div className={classes.categories}>
           <RadioButton
-            label="Les plus récent"
+            label="Les + récents d'abord"
             value="-createdAt"
             isSelected={sort === '-createdAt'}
             onRadioChange={handleSort}
             groupName="sort"
           />
           <RadioButton
-            label="Les plus anciens"
+            label="Les + anciens d'abord"
             value="createdAt"
             isSelected={sort === 'createdAt'}
             onRadioChange={handleSort}
