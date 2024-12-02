@@ -201,7 +201,7 @@ export const CartProvider = props => {
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {
         isInCart = Boolean(
           itemsInCart.find(({ product }) =>
-            typeof product === 'string'
+            typeof product === 'number'
               ? product === incomingProduct.id
               : product?.id === incomingProduct.id,
           ), // eslint-disable-line function-paren-newline
@@ -249,9 +249,9 @@ export const CartProvider = props => {
       }, 0) || 0
 
     setTotal({
-      formatted: (newTotal / 100).toLocaleString('en-US', {
+      formatted: (newTotal / 100).toLocaleString('fr-FR', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'EUR',
       }),
       raw: newTotal,
     })
