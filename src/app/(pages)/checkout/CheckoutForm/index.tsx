@@ -55,7 +55,7 @@ export const CheckoutForm: React.FC<{}> = () => {
                 total: cartTotal.raw,
                 stripePaymentIntentID: paymentIntent.id,
                 items: (cart?.items || [])?.map(({ product, quantity }) => ({
-                  product: typeof product === 'string' ? product : product.id,
+                  product: typeof product === 'number' ? product : product.id,
                   quantity,
                   price:
                     typeof product === 'object'
@@ -65,7 +65,7 @@ export const CheckoutForm: React.FC<{}> = () => {
               }),
             })
 
-            if (!orderReq.ok) throw new Error(orderReq.statusText || 'Something went wrong.')
+            if (!orderReq.ok) throw new Error(orderReq.statusText || "Une erreur s'est produite.")
 
             const {
               error: errorFromRes,
@@ -87,8 +87,8 @@ export const CheckoutForm: React.FC<{}> = () => {
           }
         }
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Something went wrong.'
-        setError(`Error while submitting payment: ${msg}`)
+        const msg = err instanceof Error ? err.message : "Une erreur s'est produite."
+        setError(`Une erreur s'est produite lors du règlement: ${msg}`)
         setIsLoading(false)
       }
     },
@@ -100,9 +100,9 @@ export const CheckoutForm: React.FC<{}> = () => {
       {error && <Message error={error} />}
       <PaymentElement />
       <div className={classes.actions}>
-        <Button label="Back to cart" href="/cart" appearance="secondary" />
+        <Button label="Retour au panier" href="/cart" appearance="secondary" />
         <Button
-          label={isLoading ? 'Loading...' : 'Checkout'}
+          label={isLoading ? 'En cours...' : 'Procéder'}
           type="submit"
           appearance="primary"
           disabled={!stripe || isLoading}

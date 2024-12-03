@@ -8,15 +8,13 @@ import { useRouter } from 'next/navigation'
 
 import { Settings } from '../../../../payload/payload-types'
 import { Button } from '../../../_components/Button'
-import { HR } from '../../../_components/HR'
 import { LoadingShimmer } from '../../../_components/LoadingShimmer'
-import { Media } from '../../../_components/Media'
-import { Price } from '../../../_components/Price'
 import { useAuth } from '../../../_providers/Auth'
 import { useCart } from '../../../_providers/Cart'
 import { useTheme } from '../../../_providers/Theme'
 import cssVariables from '../../../cssVariables'
 import { CheckoutForm } from '../CheckoutForm'
+import CheckoutItem from '../CheckoutItem'
 
 import classes from './index.module.scss'
 
@@ -68,7 +66,7 @@ export const CheckoutPage: React.FC<{
             setClientSecret(res.client_secret)
           }
         } catch (e) {
-          setError('Something went wrong.')
+          setError("Une erreur s'est produite.")
         }
       }
 
@@ -82,70 +80,60 @@ export const CheckoutPage: React.FC<{
     <Fragment>
       {cartIsEmpty && (
         <div>
-          {'Your '}
-          <Link href="/cart">cart</Link>
-          {' is empty.'}
+          {'Votre '}
+          <Link href="/cart">panier</Link>
+          {' est vide.'}
           {typeof productsPage === 'object' && productsPage?.slug && (
             <Fragment>
               {' '}
-              <Link href={`/${productsPage.slug}`}>Continue shopping?</Link>
+              <Link href={`/${productsPage.slug}`}>Continuer vos achats ?</Link>
             </Fragment>
           )}
         </div>
       )}
       {!cartIsEmpty && (
         <div className={classes.items}>
-          {cart?.items?.map((item, index) => {
-            if (typeof item.product === 'object') {
-              const {
-                quantity,
-                product,
-                product: { id, stripeProductID, title, meta },
-              } = item
+          <div className={classes.header}>
+            <p>Produits</p>
+            <div className={classes.headerItemDetails}>
+              <p></p>
+              <p className={classes.quantity}>Quantité</p>
+            </div>
+            <p className={classes.subtotal}>Sous-total</p>
+          </div>
 
-              if (!quantity) return null
+          <ul>
+            {cart?.items?.map((item, index) => {
+              if (typeof item.product === 'object') {
+                const {
+                  quantity,
+                  product,
+                  product: { title, meta },
+                } = item
 
-              const isLast = index === (cart?.items?.length || 0) - 1
+                if (!quantity) return null
 
-              const metaImage = meta?.image
+                const metaImage = meta?.image
 
-              return (
-                <Fragment key={index}>
-                  <div className={classes.row}>
-                    <div className={classes.mediaWrapper}>
-                      {!metaImage && <span className={classes.placeholder}>No image</span>}
-                      {metaImage && typeof metaImage !== 'string' && (
-                        <Media
-                          className={classes.media}
-                          imgClassName={classes.image}
-                          resource={metaImage}
-                          fill
-                        />
-                      )}
-                    </div>
-                    <div className={classes.rowContent}>
-                      {!stripeProductID && (
-                        <p className={classes.warning}>
-                          {'This product is not yet connected to Stripe. To link this product, '}
-                          <Link
-                            href={`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/collections/products/${id}`}
-                          >
-                            edit this product in the admin panel
-                          </Link>
-                          {'.'}
-                        </p>
-                      )}
-                      <h6 className={classes.title}>{title}</h6>
-                      <Price product={product} button={false} quantity={quantity} />
-                    </div>
-                  </div>
-                  {!isLast && <HR />}
-                </Fragment>
-              )
-            }
-            return null
-          })}
-          <div className={classes.orderTotal}>{`Order total: ${cartTotal.formatted}`}</div>
+                return (
+                  <Fragment key={index}>
+                    <CheckoutItem
+                      key={index}
+                      product={product}
+                      title={title}
+                      metaImage={metaImage}
+                      quantity={quantity}
+                    />
+                  </Fragment>
+                )
+              }
+              return null
+            })}
+            <div className={classes.orderTotal}>
+              <p>Total à régler</p>
+              <p>{cartTotal.formatted}</p>
+            </div>
+          </ul>
         </div>
       )}
       {!clientSecret && !error && (
@@ -155,13 +143,14 @@ export const CheckoutPage: React.FC<{
       )}
       {!clientSecret && error && (
         <div className={classes.error}>
-          <p>{`Error: ${error}`}</p>
-          <Button label="Back to cart" href="/cart" appearance="secondary" />
+          <p>{`Erreur: ${error}`}</p>
+          <Button label="Retour au panier" href="/cart" appearance="secondary" />
         </div>
       )}
       {clientSecret && (
         <Fragment>
-          {error && <p>{`Error: ${error}`}</p>}
+          <h3 className={classes.payment}>Règlement de la commande</h3>
+          {error && <p>{`Erreur: ${error}`}</p>}
           <Elements
             stripe={stripe}
             options={{
