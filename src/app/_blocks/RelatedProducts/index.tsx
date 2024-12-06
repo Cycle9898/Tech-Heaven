@@ -10,7 +10,7 @@ export type RelatedProductsProps = {
   blockType: 'relatedProducts'
   blockName: string
   introContent?: any
-  docs?: (number | Product)[]
+  docs?: (string | Product)[]
   relationTo: 'products'
 }
 
@@ -24,7 +24,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = props => {
 
         <div className={classes.grid}>
           {docs?.map(doc => {
-            if (typeof doc === 'number') return null
+            if (typeof doc === 'string') return null
 
             return <Card key={doc.id} relationTo={relationTo} doc={doc as Product} showCategories />
           })}

@@ -1,42 +1,42 @@
 type Query {
-  Page(id: Int!, draft: Boolean): Page
+  Page(id: String!, draft: Boolean): Page
   Pages(draft: Boolean, where: Page_where, limit: Int, page: Int, sort: String): Pages
   countPages(draft: Boolean, where: Page_where): countPages
-  docAccessPage(id: Int!): pagesDocAccess
-  versionPage(id: Int): PageVersion
+  docAccessPage(id: String!): pagesDocAccess
+  versionPage(id: String): PageVersion
   versionsPages(where: versionsPage_where, limit: Int, page: Int, sort: String): versionsPages
-  Product(id: Int!, draft: Boolean): Product
+  Product(id: String!, draft: Boolean): Product
   Products(draft: Boolean, where: Product_where, limit: Int, page: Int, sort: String): Products
   countProducts(draft: Boolean, where: Product_where): countProducts
-  docAccessProduct(id: Int!): productsDocAccess
-  versionProduct(id: Int): ProductVersion
+  docAccessProduct(id: String!): productsDocAccess
+  versionProduct(id: String): ProductVersion
   versionsProducts(where: versionsProduct_where, limit: Int, page: Int, sort: String): versionsProducts
-  Order(id: Int!): Order
+  Order(id: String!): Order
   Orders(where: Order_where, limit: Int, page: Int, sort: String): Orders
   countOrders(where: Order_where): countOrders
-  docAccessOrder(id: Int!): ordersDocAccess
-  Media(id: Int!): Media
+  docAccessOrder(id: String!): ordersDocAccess
+  Media(id: String!): Media
   allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
   countallMedia(where: Media_where): countallMedia
-  docAccessMedia(id: Int!): mediaDocAccess
-  Category(id: Int!): Category
+  docAccessMedia(id: String!): mediaDocAccess
+  Category(id: String!): Category
   Categories(where: Category_where, limit: Int, page: Int, sort: String): Categories
   countCategories(where: Category_where): countCategories
-  docAccessCategory(id: Int!): categoriesDocAccess
-  User(id: Int!): User
+  docAccessCategory(id: String!): categoriesDocAccess
+  User(id: String!): User
   Users(where: User_where, limit: Int, page: Int, sort: String): Users
   countUsers(where: User_where): countUsers
-  docAccessUser(id: Int!): usersDocAccess
+  docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Redirect(id: Int!): Redirect
+  Redirect(id: String!): Redirect
   Redirects(where: Redirect_where, limit: Int, page: Int, sort: String): Redirects
   countRedirects(where: Redirect_where): countRedirects
-  docAccessRedirect(id: Int!): redirectsDocAccess
-  PayloadPreference(id: Int!): PayloadPreference
+  docAccessRedirect(id: String!): redirectsDocAccess
+  PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
-  docAccessPayloadPreference(id: Int!): payload_preferencesDocAccess
+  docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
   Settings(draft: Boolean): Settings
   docAccessSettings: settingsDocAccess
   Header(draft: Boolean): Header
@@ -47,7 +47,7 @@ type Query {
 }
 
 type Page {
-  id: Int
+  id: String
   title: String
   publishedOn: DateTime
   hero: Page_Hero
@@ -116,7 +116,7 @@ enum Page_Hero_Links_Link_Reference_RelationTo {
 union Page_Hero_Links_Link_Reference = Page
 
 type Media {
-  id: Int
+  id: String
   alt: String!
   caption(depth: Int): JSON
   updatedAt: DateTime
@@ -1217,7 +1217,7 @@ enum Archive_relationTo {
 }
 
 type Category {
-  id: Int
+  id: String
   title: String!
   media(where: Category_Media_where): Media
   parent: Category
@@ -1433,7 +1433,7 @@ enum Archive_SelectedDocs_RelationTo {
 union Archive_SelectedDocs = Product
 
 type Product {
-  id: Int
+  id: String
   title: String
   publishedOn: DateTime
   layout: [Product_Layout!]
@@ -2106,12 +2106,13 @@ enum Page__status_Input {
 }
 
 input Page_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -2835,7 +2836,7 @@ type PageVersion {
   createdAt: DateTime
   updatedAt: DateTime
   latest: Boolean
-  id: Int
+  id: String
 }
 
 type PageVersion_Version {
@@ -3762,12 +3763,13 @@ input versionsPage_latest_operator {
 }
 
 input versionsPage_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -4009,12 +4011,13 @@ enum Product__status_Input {
 }
 
 input Product_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -4543,7 +4546,7 @@ type ProductVersion {
   createdAt: DateTime
   updatedAt: DateTime
   latest: Boolean
-  id: Int
+  id: String
 }
 
 type ProductVersion_Version {
@@ -4986,12 +4989,13 @@ input versionsProduct_latest_operator {
 }
 
 input versionsProduct_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -5046,7 +5050,7 @@ input versionsProduct_where_or {
 }
 
 type Order {
-  id: Int
+  id: String
   orderedBy: User
   stripePaymentIntentID: String
   total: Float!
@@ -5056,7 +5060,7 @@ type Order {
 }
 
 type User {
-  id: Int
+  id: String
   name: String
   roles: [User_roles!]
   purchases(draft: Boolean): [Product!]
@@ -5222,12 +5226,13 @@ input Order_createdAt_operator {
 }
 
 input Order_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -5696,12 +5701,13 @@ input Media_focalY_operator {
 }
 
 input Media_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -6183,12 +6189,13 @@ input Category_createdAt_operator {
 }
 
 input Category_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -6646,12 +6653,13 @@ input User_email_operator {
 }
 
 input User_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -7083,7 +7091,7 @@ type usersMe {
 }
 
 type Redirect {
-  id: Int
+  id: String
   from: String!
   to: Redirect_To
   updatedAt: DateTime
@@ -7205,12 +7213,13 @@ input Redirect_createdAt_operator {
 }
 
 input Redirect_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -7446,7 +7455,7 @@ type RedirectsDeleteDocAccess {
 }
 
 type PayloadPreference {
-  id: Int
+  id: String
   user: PayloadPreference_User_Relationship!
   key: String
   value: JSON
@@ -7543,12 +7552,13 @@ input PayloadPreference_createdAt_operator {
 }
 
 input PayloadPreference_id_operator {
-  equals: Int
-  not_equals: Int
-  greater_than_equal: Int
-  greater_than: Int
-  less_than_equal: Int
-  less_than: Int
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -12325,25 +12335,25 @@ type FooterUpdateAccess {
 
 type Mutation {
   createPage(data: mutationPageInput!, draft: Boolean): Page
-  updatePage(id: Int!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean): Page
-  deletePage(id: Int!): Page
-  restoreVersionPage(id: Int): Page
+  updatePage(id: String!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean): Page
+  deletePage(id: String!): Page
+  restoreVersionPage(id: String): Page
   createProduct(data: mutationProductInput!, draft: Boolean): Product
-  updateProduct(id: Int!, autosave: Boolean, data: mutationProductUpdateInput!, draft: Boolean): Product
-  deleteProduct(id: Int!): Product
-  restoreVersionProduct(id: Int): Product
+  updateProduct(id: String!, autosave: Boolean, data: mutationProductUpdateInput!, draft: Boolean): Product
+  deleteProduct(id: String!): Product
+  restoreVersionProduct(id: String): Product
   createOrder(data: mutationOrderInput!): Order
-  updateOrder(id: Int!, autosave: Boolean, data: mutationOrderUpdateInput!): Order
-  deleteOrder(id: Int!): Order
+  updateOrder(id: String!, autosave: Boolean, data: mutationOrderUpdateInput!): Order
+  deleteOrder(id: String!): Order
   createMedia(data: mutationMediaInput!): Media
-  updateMedia(id: Int!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
-  deleteMedia(id: Int!): Media
+  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
+  deleteMedia(id: String!): Media
   createCategory(data: mutationCategoryInput!): Category
-  updateCategory(id: Int!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
-  deleteCategory(id: Int!): Category
+  updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
+  deleteCategory(id: String!): Category
   createUser(data: mutationUserInput!): User
-  updateUser(id: Int!, autosave: Boolean, data: mutationUserUpdateInput!): User
-  deleteUser(id: Int!): User
+  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!): User
+  deleteUser(id: String!): User
   refreshTokenUser: usersRefreshedUser
   logoutUser: String
   unlockUser(email: String!): Boolean!
@@ -12352,11 +12362,11 @@ type Mutation {
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
   createRedirect(data: mutationRedirectInput!): Redirect
-  updateRedirect(id: Int!, autosave: Boolean, data: mutationRedirectUpdateInput!): Redirect
-  deleteRedirect(id: Int!): Redirect
+  updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!): Redirect
+  deleteRedirect(id: String!): Redirect
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
-  updatePayloadPreference(id: Int!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
-  deletePayloadPreference(id: Int!): PayloadPreference
+  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
+  deletePayloadPreference(id: String!): PayloadPreference
   updateSettings(data: mutationSettingsInput!, draft: Boolean): Settings
   updateHeader(data: mutationHeaderInput!, draft: Boolean): Header
   updateFooter(data: mutationFooterInput!, draft: Boolean): Footer
@@ -12506,8 +12516,8 @@ input mutationProductInput {
   priceJSON: String
   enablePaywall: Boolean
   paywall: JSON
-  categories: [Int]
-  relatedProducts: [Int]
+  categories: [String]
+  relatedProducts: [String]
   slug: String
   skipSync: Boolean
   meta: mutationProduct_MetaInput
@@ -12535,8 +12545,8 @@ input mutationProductUpdateInput {
   priceJSON: String
   enablePaywall: Boolean
   paywall: JSON
-  categories: [Int]
-  relatedProducts: [Int]
+  categories: [String]
+  relatedProducts: [String]
   slug: String
   skipSync: Boolean
   meta: mutationProductUpdate_MetaInput
@@ -12557,7 +12567,7 @@ enum ProductUpdate__status_MutationInput {
 }
 
 input mutationOrderInput {
-  orderedBy: Int
+  orderedBy: String
   stripePaymentIntentID: String
   total: Float!
   items: [mutationOrder_ItemsInput]
@@ -12566,14 +12576,14 @@ input mutationOrderInput {
 }
 
 input mutationOrder_ItemsInput {
-  product: Int
+  product: String
   price: Float
   quantity: Float
   id: String
 }
 
 input mutationOrderUpdateInput {
-  orderedBy: Int
+  orderedBy: String
   stripePaymentIntentID: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
@@ -12582,7 +12592,7 @@ input mutationOrderUpdateInput {
 }
 
 input mutationOrderUpdate_ItemsInput {
-  product: Int
+  product: String
   price: Float
   quantity: Float
   id: String
@@ -12621,14 +12631,14 @@ input mutationMediaUpdateInput {
 input mutationCategoryInput {
   title: String!
   media: String
-  parent: Int
+  parent: String
   breadcrumbs: [mutationCategory_BreadcrumbsInput]
   updatedAt: String
   createdAt: String
 }
 
 input mutationCategory_BreadcrumbsInput {
-  doc: Int
+  doc: String
   url: String
   label: String
   id: String
@@ -12637,14 +12647,14 @@ input mutationCategory_BreadcrumbsInput {
 input mutationCategoryUpdateInput {
   title: String
   media: String
-  parent: Int
+  parent: String
   breadcrumbs: [mutationCategoryUpdate_BreadcrumbsInput]
   updatedAt: String
   createdAt: String
 }
 
 input mutationCategoryUpdate_BreadcrumbsInput {
-  doc: Int
+  doc: String
   url: String
   label: String
   id: String
@@ -12653,7 +12663,7 @@ input mutationCategoryUpdate_BreadcrumbsInput {
 input mutationUserInput {
   name: String
   roles: [User_roles_MutationInput]
-  purchases: [Int]
+  purchases: [String]
   stripeCustomerID: String
   cart: mutationUser_CartInput
   skipSync: Boolean
@@ -12679,7 +12689,7 @@ input mutationUser_CartInput {
 }
 
 input mutationUser_Cart_ItemsInput {
-  product: Int
+  product: String
   quantity: Float
   id: String
 }
@@ -12687,7 +12697,7 @@ input mutationUser_Cart_ItemsInput {
 input mutationUserUpdateInput {
   name: String
   roles: [UserUpdate_roles_MutationInput]
-  purchases: [Int]
+  purchases: [String]
   stripeCustomerID: String
   cart: mutationUserUpdate_CartInput
   skipSync: Boolean
@@ -12713,7 +12723,7 @@ input mutationUserUpdate_CartInput {
 }
 
 input mutationUserUpdate_Cart_ItemsInput {
-  product: Int
+  product: String
   quantity: Float
   id: String
 }
@@ -12822,7 +12832,7 @@ enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
 }
 
 input mutationSettingsInput {
-  productsPage: Int
+  productsPage: String
   updatedAt: String
   createdAt: String
 }

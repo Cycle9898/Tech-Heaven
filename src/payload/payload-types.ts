@@ -12,7 +12,7 @@
  */
 export type CartItems =
   | {
-      product?: (number | null) | Product;
+      product?: (string | null) | Product;
       quantity?: number | null;
       id?: string | null;
     }[]
@@ -41,7 +41,7 @@ export interface Config {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
+  id: string;
   title: string;
   publishedOn?: string | null;
   hero: {
@@ -56,17 +56,17 @@ export interface Page {
             newTab?: boolean | null;
             reference?: {
               relationTo: 'pages';
-              value: number | Page;
+              value: string | Page;
             } | null;
             url?: string | null;
             label: string;
-            icon?: number | Media | null;
+            icon?: string | Media | null;
             appearance?: ('default' | 'primary' | 'secondary') | null;
           };
           id?: string | null;
         }[]
       | null;
-    media?: number | Media | null;
+    media?: string | Media | null;
   };
   layout: (
     | {
@@ -81,11 +81,11 @@ export interface Page {
                 newTab?: boolean | null;
                 reference?: {
                   relationTo: 'pages';
-                  value: number | Page;
+                  value: string | Page;
                 } | null;
                 url?: string | null;
                 label: string;
-                icon?: number | Media | null;
+                icon?: string | Media | null;
                 appearance?: ('primary' | 'secondary') | null;
               };
               id?: string | null;
@@ -109,11 +109,11 @@ export interface Page {
                 newTab?: boolean | null;
                 reference?: {
                   relationTo: 'pages';
-                  value: number | Page;
+                  value: string | Page;
                 } | null;
                 url?: string | null;
                 label: string;
-                icon?: number | Media | null;
+                icon?: string | Media | null;
                 appearance?: ('default' | 'primary' | 'secondary') | null;
               };
               id?: string | null;
@@ -126,7 +126,7 @@ export interface Page {
     | {
         invertBackground?: boolean | null;
         position?: ('default' | 'fullscreen') | null;
-        media: number | Media;
+        media: string | Media;
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaBlock';
@@ -137,18 +137,18 @@ export interface Page {
         }[];
         populateBy?: ('collection' | 'selection') | null;
         relationTo?: 'products' | null;
-        categories?: (number | Category)[] | null;
+        categories?: (string | Category)[] | null;
         limit?: number | null;
         selectedDocs?:
           | {
               relationTo: 'products';
-              value: number | Product;
+              value: string | Product;
             }[]
           | null;
         populatedDocs?:
           | {
               relationTo: 'products';
-              value: number | Product;
+              value: string | Product;
             }[]
           | null;
         populatedDocsTotal?: number | null;
@@ -161,7 +161,7 @@ export interface Page {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: number | Media | null;
+    image?: string | Media | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -172,7 +172,7 @@ export interface Page {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt: string;
   caption?:
     | {
@@ -195,13 +195,13 @@ export interface Media {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: number;
+  id: string;
   title: string;
-  media?: number | Media | null;
-  parent?: (number | null) | Category;
+  media?: string | Media | null;
+  parent?: (string | null) | Category;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Category;
+        doc?: (string | null) | Category;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -215,7 +215,7 @@ export interface Category {
  * via the `definition` "products".
  */
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   publishedOn?: string | null;
   layout?:
@@ -232,11 +232,11 @@ export interface Product {
                     newTab?: boolean | null;
                     reference?: {
                       relationTo: 'pages';
-                      value: number | Page;
+                      value: string | Page;
                     } | null;
                     url?: string | null;
                     label: string;
-                    icon?: number | Media | null;
+                    icon?: string | Media | null;
                     appearance?: ('primary' | 'secondary') | null;
                   };
                   id?: string | null;
@@ -260,11 +260,11 @@ export interface Product {
                     newTab?: boolean | null;
                     reference?: {
                       relationTo: 'pages';
-                      value: number | Page;
+                      value: string | Page;
                     } | null;
                     url?: string | null;
                     label: string;
-                    icon?: number | Media | null;
+                    icon?: string | Media | null;
                     appearance?: ('default' | 'primary' | 'secondary') | null;
                   };
                   id?: string | null;
@@ -277,7 +277,7 @@ export interface Product {
         | {
             invertBackground?: boolean | null;
             position?: ('default' | 'fullscreen') | null;
-            media: number | Media;
+            media: string | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'mediaBlock';
@@ -288,18 +288,18 @@ export interface Product {
             }[];
             populateBy?: ('collection' | 'selection') | null;
             relationTo?: 'products' | null;
-            categories?: (number | Category)[] | null;
+            categories?: (string | Category)[] | null;
             limit?: number | null;
             selectedDocs?:
               | {
                   relationTo: 'products';
-                  value: number | Product;
+                  value: string | Product;
                 }[]
               | null;
             populatedDocs?:
               | {
                   relationTo: 'products';
-                  value: number | Product;
+                  value: string | Product;
                 }[]
               | null;
             populatedDocsTotal?: number | null;
@@ -326,11 +326,11 @@ export interface Product {
                     newTab?: boolean | null;
                     reference?: {
                       relationTo: 'pages';
-                      value: number | Page;
+                      value: string | Page;
                     } | null;
                     url?: string | null;
                     label: string;
-                    icon?: number | Media | null;
+                    icon?: string | Media | null;
                     appearance?: ('primary' | 'secondary') | null;
                   };
                   id?: string | null;
@@ -354,11 +354,11 @@ export interface Product {
                     newTab?: boolean | null;
                     reference?: {
                       relationTo: 'pages';
-                      value: number | Page;
+                      value: string | Page;
                     } | null;
                     url?: string | null;
                     label: string;
-                    icon?: number | Media | null;
+                    icon?: string | Media | null;
                     appearance?: ('default' | 'primary' | 'secondary') | null;
                   };
                   id?: string | null;
@@ -371,7 +371,7 @@ export interface Product {
         | {
             invertBackground?: boolean | null;
             position?: ('default' | 'fullscreen') | null;
-            media: number | Media;
+            media: string | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'mediaBlock';
@@ -382,18 +382,18 @@ export interface Product {
             }[];
             populateBy?: ('collection' | 'selection') | null;
             relationTo?: 'products' | null;
-            categories?: (number | Category)[] | null;
+            categories?: (string | Category)[] | null;
             limit?: number | null;
             selectedDocs?:
               | {
                   relationTo: 'products';
-                  value: number | Product;
+                  value: string | Product;
                 }[]
               | null;
             populatedDocs?:
               | {
                   relationTo: 'products';
-                  value: number | Product;
+                  value: string | Product;
                 }[]
               | null;
             populatedDocsTotal?: number | null;
@@ -403,14 +403,14 @@ export interface Product {
           }
       )[]
     | null;
-  categories?: (number | Category)[] | null;
-  relatedProducts?: (number | Product)[] | null;
+  categories?: (string | Category)[] | null;
+  relatedProducts?: (string | Product)[] | null;
   slug?: string | null;
   skipSync?: boolean | null;
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: number | Media | null;
+    image?: string | Media | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -421,13 +421,13 @@ export interface Product {
  * via the `definition` "orders".
  */
 export interface Order {
-  id: number;
-  orderedBy?: (number | null) | User;
+  id: string;
+  orderedBy?: (string | null) | User;
   stripePaymentIntentID?: string | null;
   total: number;
   items?:
     | {
-        product: number | Product;
+        product: string | Product;
         price?: number | null;
         quantity?: number | null;
         id?: string | null;
@@ -441,10 +441,10 @@ export interface Order {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   name?: string | null;
   roles?: ('admin' | 'customer')[] | null;
-  purchases?: (number | Product)[] | null;
+  purchases?: (string | Product)[] | null;
   stripeCustomerID?: string | null;
   cart?: {
     items?: CartItems;
@@ -466,18 +466,18 @@ export interface User {
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: number;
+  id: string;
   from: string;
   to?: {
     type?: ('reference' | 'custom') | null;
     reference?:
       | ({
           relationTo: 'pages';
-          value: number | Page;
+          value: string | Page;
         } | null)
       | ({
           relationTo: 'products';
-          value: number | Product;
+          value: string | Product;
         } | null);
     url?: string | null;
   };
@@ -489,10 +489,10 @@ export interface Redirect {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -512,7 +512,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -523,8 +523,8 @@ export interface PayloadMigration {
  * via the `definition` "settings".
  */
 export interface Settings {
-  id: number;
-  productsPage?: (number | null) | Page;
+  id: string;
+  productsPage?: (string | null) | Page;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -533,7 +533,7 @@ export interface Settings {
  * via the `definition` "header".
  */
 export interface Header {
-  id: number;
+  id: string;
   navItems?:
     | {
         link: {
@@ -541,11 +541,11 @@ export interface Header {
           newTab?: boolean | null;
           reference?: {
             relationTo: 'pages';
-            value: number | Page;
+            value: string | Page;
           } | null;
           url?: string | null;
           label: string;
-          icon?: number | Media | null;
+          icon?: string | Media | null;
         };
         id?: string | null;
       }[]
@@ -558,7 +558,7 @@ export interface Header {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: number;
+  id: string;
   copyright: string;
   navItems?:
     | {
@@ -567,11 +567,11 @@ export interface Footer {
           newTab?: boolean | null;
           reference?: {
             relationTo: 'pages';
-            value: number | Page;
+            value: string | Page;
           } | null;
           url?: string | null;
           label: string;
-          icon?: number | Media | null;
+          icon?: string | Media | null;
         };
         id?: string | null;
       }[]

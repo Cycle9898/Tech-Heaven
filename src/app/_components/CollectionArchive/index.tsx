@@ -6,7 +6,6 @@ import qs from 'qs'
 import type { Product } from '../../../payload/payload-types'
 import type { ArchiveBlockProps } from '../../_blocks/ArchiveBlock/types'
 import { Card } from '../Card'
-import { Gutter } from '../Gutter'
 import { PageRange } from '../PageRange'
 import { Pagination } from '../Pagination'
 
@@ -14,7 +13,7 @@ import classes from './index.module.scss'
 import { useFilter } from '@/app/_providers/Filter'
 
 type Result = {
-  docs: (Product | number)[]
+  docs: (Product | string)[]
   hasNextPage: boolean
   hasPrevPage: boolean
   nextPage: number

@@ -36,7 +36,7 @@ function CartItem({ product, title, metaImage, quantity, addItemToCart }) {
     <li className={classes.item}>
       <Link href={`/products/${product.slug}`} className={classes.mediaWrapper}>
         {!metaImage && <span>Pas d'image</span>}
-        {metaImage && typeof metaImage !== 'number' && (
+        {metaImage && typeof metaImage !== 'string' && (
           <Media className={classes.media} imgClassName={classes.image} resource={metaImage} fill />
         )}
       </Link>

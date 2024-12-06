@@ -45,6 +45,7 @@ export const CheckoutForm: React.FC<{}> = () => {
           // you will be redirected to the `/cart` page before this redirect happens
           // Instead, we clear the cart in an `afterChange` hook on the `orders` collection in Payload
           try {
+            console.log('start creating order')
             const orderReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders`, {
               method: 'POST',
               credentials: 'include',
@@ -55,7 +56,7 @@ export const CheckoutForm: React.FC<{}> = () => {
                 total: cartTotal.raw,
                 stripePaymentIntentID: paymentIntent.id,
                 items: (cart?.items || [])?.map(({ product, quantity }) => ({
-                  product: typeof product === 'number' ? product : product.id,
+                  product: typeof product === 'string' ? product : product.id,
                   quantity,
                   price:
                     typeof product === 'object'
@@ -65,7 +66,9 @@ export const CheckoutForm: React.FC<{}> = () => {
               }),
             })
 
+            console.log('check created order')
             if (!orderReq.ok) throw new Error(orderReq.statusText || "Une erreur s'est produite.")
+            console.log('order created')
 
             const {
               error: errorFromRes,
@@ -78,6 +81,7 @@ export const CheckoutForm: React.FC<{}> = () => {
 
             if (errorFromRes) throw new Error(errorFromRes)
 
+            console.log('no error here')
             router.push(`/order-confirmation?order_id=${doc.id}`)
           } catch (err) {
             // don't throw an error if the order was not created successfully
@@ -87,6 +91,7 @@ export const CheckoutForm: React.FC<{}> = () => {
           }
         }
       } catch (err) {
+        console.log(' general errors')
         const msg = err instanceof Error ? err.message : "Une erreur s'est produite."
         setError(`Une erreur s'est produite lors du règlement: ${msg}`)
         setIsLoading(false)

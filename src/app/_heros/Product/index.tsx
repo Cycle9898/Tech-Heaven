@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react'
-import Link from 'next/link'
 
 import { Product } from '../../../payload/payload-types'
 import { AddToCartButton } from '../../_components/AddToCartButton'
 import { Gutter } from '../../_components/Gutter'
 import { Media } from '../../_components/Media'
 import { Price } from '../../_components/Price'
-import RichText from '../../_components/RichText'
 
 import classes from './index.module.scss'
 
@@ -19,7 +17,7 @@ export const ProductHero: React.FC<{
     <Gutter className={classes.productHero}>
       <div className={classes.mediaWrapper}>
         {!metaImage && <div className={classes.placeholder}>Pas d'image</div>}
-        {metaImage && typeof metaImage !== 'number' && (
+        {metaImage && typeof metaImage !== 'string' && (
           <Media imgClassName={classes.image} resource={metaImage} fill />
         )}
       </div>
@@ -33,7 +31,7 @@ export const ProductHero: React.FC<{
               if (typeof category === 'object' && category !== null) {
                 const { title: categoryTitle } = category
 
-                const titleToUse = categoryTitle || 'Untitled category'
+                const titleToUse = categoryTitle || 'Catégorie sans titre'
 
                 const isLast = index === categories.length - 1
 
