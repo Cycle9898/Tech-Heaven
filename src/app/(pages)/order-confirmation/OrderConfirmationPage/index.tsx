@@ -26,28 +26,32 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
         <Fragment>
           <Message error={error} />
           <p>
-            {`Your payment was successful but there was an error processing your order. Please contact us to resolve this issue.`}
+            {`Votre paiement a été effectué avec succès mais une erreur s'est produite lors du traitement de votre commande. Veuillez nous contacter pour résoudre ce problème.`}
           </p>
           <div className={classes.actions}>
-            <Button href="/account" label="View account" appearance="primary" />
+            <Button href="/account" label="Mon compte" appearance="primary" />
             <Button
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/orders`}
-              label="View all orders"
+              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/account/orders`}
+              label="Voir mes commandes"
               appearance="secondary"
             />
           </div>
         </Fragment>
       ) : (
         <Fragment>
-          <h1>Thank you for your order!</h1>
+          <h1>Merci d'avoir passé commande !</h1>
           <p>
-            {`Your order has been confirmed. You will receive an email confirmation shortly. Your order ID is ${orderID}.`}
+            {`Votre commande a été confirmée. Vous recevrez prochainement un email de confirmation. Le numéro de votre commande est '${orderID}'.`}
           </p>
           <div className={classes.actions}>
-            <Button href={`/orders/${orderID}`} label="View order" appearance="primary" />
             <Button
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/orders`}
-              label="View all orders"
+              href={`/account/orders/${orderID}`}
+              label="Voir cette commande"
+              appearance="primary"
+            />
+            <Button
+              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/account/orders`}
+              label="Voir mes commandes"
               appearance="secondary"
             />
           </div>
