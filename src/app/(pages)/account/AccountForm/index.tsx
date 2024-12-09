@@ -53,7 +53,7 @@ const AccountForm: React.FC = () => {
         if (response.ok) {
           const json = await response.json()
           setUser(json.doc)
-          setSuccess('Successfully updated account.')
+          setSuccess('Compte mis à jour avec succès.')
           setError('')
           setChangePassword(false)
           reset({
@@ -63,7 +63,7 @@ const AccountForm: React.FC = () => {
             passwordConfirm: '',
           })
         } else {
-          setError('There was a problem updating your account.')
+          setError('Un problème est survenu lors de la mise à jour de votre compte.')
         }
       }
     },
@@ -74,7 +74,7 @@ const AccountForm: React.FC = () => {
     if (user === null) {
       router.push(
         `/login?error=${encodeURIComponent(
-          'You must be logged in to view this page.',
+          'Vous devez être connecté pour voir cette page.',
         )}&redirect=${encodeURIComponent('/account')}`,
       )
     }
@@ -95,44 +95,45 @@ const AccountForm: React.FC = () => {
       <Message error={error} success={success} className={classes.message} />
       {!changePassword ? (
         <Fragment>
-          <p>
-            {'Change your account details below, or '}
-            <button
-              type="button"
-              className={classes.changePassword}
-              onClick={() => setChangePassword(!changePassword)}
-            >
-              click here
-            </button>
-            {' to change your password.'}
-          </p>
           <Input
             name="email"
-            label="Email Address"
+            label="Adresse e-mail"
             required
             register={register}
             error={errors.email}
             type="email"
           />
-          <Input name="name" label="Name" register={register} error={errors.name} />
-        </Fragment>
-      ) : (
-        <Fragment>
+          <Input name="name" label="Nom" register={register} error={errors.name} />
+
           <p>
-            {'Change your password below, or '}
+            {'Modifiez les détails de votre compte ci-dessous, ou '}
             <button
               type="button"
               className={classes.changePassword}
               onClick={() => setChangePassword(!changePassword)}
             >
-              cancel
+              cliquez ici
             </button>
-            .
+            {' pour changer votre mot de passe.'}
+          </p>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <p>
+            {'Modifiez votre mot de passe ci-dessous, ou '}
+            <button
+              type="button"
+              className={classes.changePassword}
+              onClick={() => setChangePassword(!changePassword)}
+            >
+              cliquez ici
+            </button>
+            pour annuler.
           </p>
           <Input
             name="password"
             type="password"
-            label="Password"
+            label="Mot de passe"
             required
             register={register}
             error={errors.password}
@@ -140,17 +141,25 @@ const AccountForm: React.FC = () => {
           <Input
             name="passwordConfirm"
             type="password"
-            label="Confirm Password"
+            label="Confirmez le mot de passe"
             required
             register={register}
-            validate={value => value === password.current || 'The passwords do not match'}
+            validate={value =>
+              value === password.current || 'Les mots de passe ne correspondent pas'
+            }
             error={errors.passwordConfirm}
           />
         </Fragment>
       )}
       <Button
         type="submit"
-        label={isLoading ? 'Processing' : changePassword ? 'Change Password' : 'Update Account'}
+        label={
+          isLoading
+            ? 'En cours...'
+            : changePassword
+            ? 'Changer le mot de passe'
+            : 'Mettre à jour mon compte'
+        }
         disabled={isLoading}
         appearance="primary"
         className={classes.submit}
