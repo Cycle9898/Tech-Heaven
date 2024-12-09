@@ -29,8 +29,8 @@ export default async function Logout() {
 }
 
 export const metadata: Metadata = {
-  title: 'Logout',
-  description: 'You have been logged out.',
+  title: 'Déconnexion',
+  description: 'Vous avez été déconnecté.',
   openGraph: mergeOpenGraph({
     title: 'Logout',
     url: '/logout',

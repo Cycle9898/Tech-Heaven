@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { Settings } from '../../../../payload/payload-types'
 import { useAuth } from '../../../_providers/Auth'
 
+import classes from './index.module.scss'
+
 export const LogoutPage: React.FC<{
   settings: Settings
 }> = props => {
@@ -19,9 +21,9 @@ export const LogoutPage: React.FC<{
     const performLogout = async () => {
       try {
         await logout()
-        setSuccess('Logged out successfully.')
+        setSuccess('Déconnexion réussie.')
       } catch (_) {
-        setError('You are already logged out.')
+        setError('Vous êtes déjà déconnecté.')
       }
     }
 
@@ -31,21 +33,29 @@ export const LogoutPage: React.FC<{
   return (
     <Fragment>
       {(error || success) && (
-        <div>
+        <div className={classes.container}>
           <h1>{error || success}</h1>
-          <p>
-            {'What would you like to do next?'}
+
+          <div className={classes.whatNext}>
+            <h2 className={classes.whatNextTitle}>Que souhaiteriez-vous faire ensuite ?</h2>
+
             {typeof productsPage === 'object' && productsPage?.slug && (
-              <Fragment>
-                {' '}
-                <Link href={`/${productsPage.slug}`}>Click here</Link>
-                {` to shop.`}
-              </Fragment>
+              <p>
+                <Link href={`/${productsPage.slug}`} className={classes.link}>
+                  Cliquez ici
+                </Link>
+                <span> pour retourner à la boutique.</span>
+              </p>
             )}
-            {` To log back in, `}
-            <Link href="/login">click here</Link>
-            {'.'}
-          </p>
+
+            <p>
+              {'Pour se reconnecter, '}
+              <Link href="/login" className={classes.link}>
+                cliquez ici
+              </Link>
+              .
+            </p>
+          </div>
         </div>
       )}
     </Fragment>
