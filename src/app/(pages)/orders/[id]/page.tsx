@@ -19,7 +19,7 @@ export default async function Order({ params: { id } }) {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'Vous devez être connecté pour voir vos commandes.',
-    )}&redirect=${encodeURIComponent(`/order/${id}`)}`,
+    )}&redirect=${encodeURIComponent(`/orders/${id}`)}`,
   })
 
   let order: Order | null = null
@@ -71,7 +71,7 @@ export default async function Order({ params: { id } }) {
             const {
               quantity,
               product,
-              product: { id, title, meta, stripeProductID },
+              product: { title, meta, stripeProductID },
             } = item
 
             const isLast = index === (order?.items?.length || 0) - 1
@@ -99,7 +99,9 @@ export default async function Order({ params: { id } }) {
                       </Link>
                     </h5>
                     <p>{`Quantité: ${quantity}`}</p>
-                    <Price product={product} button={false} quantity={quantity} />
+                    {stripeProductID && (
+                      <Price product={product} button={false} quantity={quantity} />
+                    )}
                   </div>
                 </div>
                 {!isLast && <HR />}

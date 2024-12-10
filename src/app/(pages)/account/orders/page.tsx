@@ -1,24 +1,22 @@
 import React from 'react'
-import { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import { Metadata } from 'next'
 
-import { Order } from '../../../payload/payload-types'
-import { Button } from '../../_components/Button'
-import { Gutter } from '../../_components/Gutter'
-import { HR } from '../../_components/HR'
-import { RenderParams } from '../../_components/RenderParams'
-import { formatDateTime } from '../../_utilities/formatDateTime'
-import { getMeUser } from '../../_utilities/getMeUser'
-import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph'
+import { getMeUser } from '@/app/_utilities/getMeUser'
+import type { Order } from '@/payload/payload-types'
+import { RenderParams } from '@/app/_components/RenderParams'
+import { formatDateTime } from '@/app/_utilities/formatDateTime'
+import { Button } from '@/app/_components/Button'
+import { mergeOpenGraph } from '@/app/_utilities/mergeOpenGraph'
 
 import classes from './index.module.scss'
 
-export default async function Orders() {
+async function Orders() {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'Vous devez être connecté pour voir vos commandes.',
-    )}&redirect=${encodeURIComponent('/orders')}`,
+    )}&redirect=${encodeURIComponent('/account/orders')}`,
   })
 
   let orders: Order[] | null = null
@@ -47,21 +45,23 @@ export default async function Orders() {
   }
 
   return (
-    <Gutter className={classes.orders}>
-      <h1>Mes commandes</h1>
+    <div>
+      <h5>Mes commandes</h5>
+
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
         <p className={classes.noOrders}>Vous n'avez pas encore effectué de commande.</p>
       )}
+
       <RenderParams />
+
       {orders && orders.length > 0 && (
-        <ul className={classes.ordersList}>
-          {orders?.map((order, index) => (
-            <li key={order.id} className={classes.listItem}>
-              <Link className={classes.item} href={`/orders/${order.id}`}>
+        <ul className={classes.orders}>
+          {orders?.map(order => (
+            <li key={order.id} className={classes.order}>
+              <Link className={classes.item} href={`/account/orders/${order.id}`}>
                 <div className={classes.itemContent}>
-                  <h4 className={classes.itemTitle}>{`Commande numéro '${order.id}'`}</h4>
+                  <h6 className={classes.itemTitle}>{`Commande numéro '${order.id}'`}</h6>
                   <div className={classes.itemMeta}>
-                    <p>{`Commandée le: ${formatDateTime(order.createdAt)}`}</p>
                     <p>
                       {'Total: '}
                       {new Intl.NumberFormat('fr-FR', {
@@ -69,25 +69,28 @@ export default async function Orders() {
                         currency: 'EUR',
                       }).format(order.total / 100)}
                     </p>
+                    <p className={classes.orderDate}>{`Commandée le: ${formatDateTime(
+                      order.createdAt,
+                    )}`}</p>
                   </div>
                 </div>
+
                 <Button
-                  appearance="secondary"
+                  appearance="default"
                   label="Voir la commande"
                   className={classes.button}
                   el="button"
                 />
               </Link>
-              {index !== orders.length - 1 && <HR />}
             </li>
           ))}
         </ul>
       )}
-      <HR />
-      <Button href="/account" appearance="primary" label="Mon compte" />
-    </Gutter>
+    </div>
   )
 }
+
+export default Orders
 
 export const metadata: Metadata = {
   title: 'Commandes',
