@@ -9,7 +9,7 @@ function CheckoutItem({ product, title, metaImage, quantity }) {
   return (
     <li className={classes.item}>
       <Link href={`/products/${product.slug}`} className={classes.mediaWrapper}>
-        {!metaImage && <span>Pas d'image</span>}
+        {!metaImage && <div className={classes.placeholder}>Pas d'image</div>}
         {metaImage && typeof metaImage !== 'string' && (
           <Media className={classes.media} imgClassName={classes.image} resource={metaImage} fill />
         )}
