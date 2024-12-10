@@ -8,7 +8,9 @@ function Categories({ categories }: { categories: Category[] }) {
     <section className={classes.container}>
       <div className={classes.titleWrapper}>
         <h3>Choisir une catégorie</h3>
-        <Link href="/products">Tout montrer</Link>
+        <Link href="/products" className={classes.link}>
+          Tout montrer
+        </Link>
       </div>
 
       <div className={classes.list}>

@@ -119,7 +119,9 @@ const CreateAccountForm: React.FC = () => {
       />
       <div>
         {'Vous avez déjà un compte ? '}
-        <Link href={`/login${allParams}`}>Se connecter</Link>
+        <Link href={`/login${allParams}`} className={classes.link}>
+          Se connecter
+        </Link>
       </div>
     </form>
   )

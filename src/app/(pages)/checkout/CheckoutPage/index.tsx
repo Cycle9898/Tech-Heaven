@@ -81,12 +81,16 @@ export const CheckoutPage: React.FC<{
       {cartIsEmpty && (
         <div>
           {'Votre '}
-          <Link href="/cart">panier</Link>
+          <Link href="/cart" className={classes.link}>
+            panier
+          </Link>
           {' est vide.'}
           {typeof productsPage === 'object' && productsPage?.slug && (
             <Fragment>
               {' '}
-              <Link href={`/${productsPage.slug}`}>Continuer vos achats ?</Link>
+              <Link href={`/${productsPage.slug}`} className={classes.link}>
+                Continuer vos achats ?
+              </Link>
             </Fragment>
           )}
         </div>

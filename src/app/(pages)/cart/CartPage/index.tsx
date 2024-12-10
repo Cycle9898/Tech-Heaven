@@ -38,14 +38,18 @@ export const CartPage: React.FC<{
               {typeof productsPage === 'object' && productsPage?.slug && (
                 <Fragment>
                   {' '}
-                  <Link href={`/${productsPage.slug}`}>Cliquez ici</Link>
+                  <Link href={`/${productsPage.slug}`} className={classes.link}>
+                    Cliquez ici
+                  </Link>
                   {` pour revenir à la boutique.`}
                 </Fragment>
               )}
               {!user && (
                 <Fragment>
                   {' '}
-                  <Link href={`/login?redirect=%2Fcart`}>Se connecter</Link>
+                  <Link href={`/login?redirect=%2Fcart`} className={classes.link}>
+                    Se connecter
+                  </Link>
                   {` pour accéder au panier enregistré.`}
                 </Fragment>
               )}
@@ -66,15 +70,13 @@ export const CartPage: React.FC<{
                 </div>
 
                 <ul className={classes.itemsList}>
-                  {cart?.items?.map((item, index) => {
+                  {cart?.items?.map(item => {
                     if (typeof item.product === 'object') {
                       const {
                         quantity,
                         product,
-                        product: { id, title, meta, stripeProductID },
+                        product: { title, meta },
                       } = item
-
-                      const isLast = index === (cart?.items?.length || 0) - 1
 
                       const metaImage = meta?.image
 

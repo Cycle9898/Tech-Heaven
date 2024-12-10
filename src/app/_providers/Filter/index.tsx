@@ -3,8 +3,8 @@
 import { createContext, SetStateAction, useContext, useState } from 'react'
 
 type FilterContextType = {
-  categoryFilters: number[]
-  setCategoryFilters: React.Dispatch<SetStateAction<number[]>>
+  categoryFilters: string[]
+  setCategoryFilters: React.Dispatch<SetStateAction<string[]>>
   sort: string
   setSort: React.Dispatch<SetStateAction<string>>
 }
