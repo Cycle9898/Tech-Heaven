@@ -3,9 +3,9 @@ import classes from './index.module.scss'
 
 interface CheckboxProps {
   label: string
-  value: number
+  value: string
   isSelected: boolean
-  onClickHandler: (value: number) => void
+  onClickHandler: (value: string) => void
 }
 
 function CheckBox({ label, value, isSelected, onClickHandler }: CheckboxProps) {

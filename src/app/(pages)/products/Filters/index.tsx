@@ -10,7 +10,7 @@ import RadioButton from '@/app/_components/RadioButton'
 function Filters({ categories }: { categories: Category[] }) {
   const { categoryFilters, sort, setCategoryFilters, setSort } = useFilter()
 
-  const handleCategories = (categoryId: number) => {
+  const handleCategories = (categoryId: string) => {
     if (categoryFilters.includes(categoryId)) {
       const updatedCategories = categoryFilters.filter(id => id !== categoryId)
 

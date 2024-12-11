@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
@@ -13,7 +13,13 @@ import { Media } from '@/app/_components/Media'
 import { Price } from '@/app/_components/Price'
 import { HR } from '@/app/_components/HR'
 
-async function Order({ params: { id } }) {
+type OrderProps = {
+  params: {
+    id: string
+  }
+}
+
+export default async function Order({ params: { id } }: OrderProps) {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'Vous devez être connecté pour voir vos commandes.',
@@ -110,9 +116,7 @@ async function Order({ params: { id } }) {
   )
 }
 
-export default Order
-
-export async function generateMetadata({ params: { id } }): Promise<Metadata> {
+export async function generateMetadata({ params: { id } }: OrderProps): Promise<Metadata> {
   return {
     title: `Commande numéro ${id}`,
     description: `Informations de la commande numéro ${id}.`,
