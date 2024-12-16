@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:1.2
+
 FROM node:20-bookworm-slim as base
 
 FROM base as builder
@@ -12,25 +14,26 @@ RUN pnpm install
 
 ENV PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js
 
-RUN pnpm build
+# Include secret file content stored on Render inside the build
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env pnpm build
 
 FROM base as runtime
-
-WORKDIR /home/node/app
 
 ENV NODE_ENV=production
 ENV PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+WORKDIR /home/node/app
 
-COPY --from=builder --chown=nextjs:nodejs /home/node/app/.next ./.next
-COPY --from=builder --chown=nextjs:nodejs /home/node/app/node_modules ./node_modules
-COPY --from=builder --chown=nextjs:nodejs /home/node/app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /home/node/app/dist ./dist
-COPY --from=builder --chown=nextjs:nodejs /home/node/app/build ./build
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
 
-USER nextjs
+RUN corepack enable pnpm
+RUN pnpm install
+
+COPY --from=builder /home/node/app/.next ./.next
+COPY --from=builder /home/node/app/public ./public
+COPY --from=builder /home/node/app/dist ./dist
+COPY --from=builder /home/node/app/build ./build
 
 EXPOSE 3000
 
