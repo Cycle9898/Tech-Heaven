@@ -31,6 +31,7 @@ RUN corepack enable pnpm
 RUN pnpm install
 
 COPY --from=builder /home/node/app/.next ./.next
+COPY --from=builder /home/node/app/media ./media
 COPY --from=builder /home/node/app/public ./public
 COPY --from=builder /home/node/app/dist ./dist
 COPY --from=builder /home/node/app/build ./build
