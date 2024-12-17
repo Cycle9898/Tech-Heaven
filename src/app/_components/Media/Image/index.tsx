@@ -46,13 +46,9 @@ export const Image: React.FC<MediaProps> = props => {
     src = `${process.env.NEXT_PUBLIC_SERVER_URL}/media/${filename}`
   }
 
-  // NOTE: this is used by the browser to determine which image to download at different screen sizes
-  const sizes = Object.entries(breakpoints)
-    .map(([, value]) => `(max-width: ${value}px) ${value}px`)
-    .join(', ')
-
   return (
     <NextImage
+      unoptimized
       className={[isLoading && classes.placeholder, classes.image, imgClassName]
         .filter(Boolean)
         .join(' ')}
@@ -68,7 +64,6 @@ export const Image: React.FC<MediaProps> = props => {
       fill={fill}
       width={!fill ? width : undefined}
       height={!fill ? height : undefined}
-      sizes={sizes}
       priority={priority}
     />
   )
