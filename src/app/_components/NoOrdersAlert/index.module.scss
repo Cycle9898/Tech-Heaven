@@ -1,0 +1,12 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    padding: 5px var(--gutter-h);
+    background-color: var(--theme-error-400);
+    font-size: 14px;
+    text-align: center;
+}
+
+.message {
+    margin: auto;
+}

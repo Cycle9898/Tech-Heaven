@@ -10,6 +10,7 @@ import { InitTheme } from './_providers/Theme/InitTheme'
 import { mergeOpenGraph } from './_utilities/mergeOpenGraph'
 
 import './_css/app.scss'
+import NoOrdersAlert from './_components/NoOrdersAlert'
 
 const jost = Jost({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className={jost.variable}>
         <Providers>
+          <NoOrdersAlert />
           <AdminBar />
           {/* @ts-expect-error */}
           <Header />
